@@ -5,6 +5,8 @@ Created on 13/10/2014
 @author: Nuno
 '''
 
+import math
+
 def contas1():
     seq=[]
     a=int(input("Introduza a quantidade de numeros da sequencia: "))
@@ -250,18 +252,98 @@ def exercicio7():
     else:
         print('%i nao e um numero perfeito'%(n))
 
-#def contas8():
+def contas8(a,b):
+    seqa=[]
+    seqb=[]
+    c=0
+    d=1
+    for i in range(1,a+1):
+        if a%i==0:
+            seqa.append(i)
+    for i in range(1,b+1):
+        if b%i==0:
+            seqb.append(i)
+    while c<=(len(seqa)-1):
+        for i in range(len(seqb)):
+            if seqa[c]==seqb[i] and seqa[c]>d:
+                d=seqa[c]
+        c+=1
+    return(d)
+
+def exercicio8():
+    a=int(input('Insira um valor: '))
+    b=int(input('Insira outro valor: '))
+    r=contas8(a,b)
+    print('O maximo divisor comum entre %i e %i e: %i'%(a,b,r))
+
+def contas10(x):
+    a=1
+    b=0
+    c=2
+    seq=[]
+    while a<=19:
+        b=((1/a)**a)*((-1)**c)
+        seq.append(b)
+        c+=1
+        a+=2
+    return(seq)
+
+def exercicio10():        
+    x=float(input('Insira o valor de x: '))
+    seq=contas10(x)
+    for i in range(len(seq)):
+        print(seq[i])
+        
+def contas11(n):
+    r=0
+    for i in range(1,n+1):
+        r+=((-1)**(i))*(math.factorial(n)/math.factorial(i))
+    return(r)
+     
+
+def exercicio11():
+    n=int(input('Insira o numero n: '))
+    r=contas11(n)
+    print(r)
+
+def contas12(a):
+    a1=int(a[0])
+    a2=int(a[1])
+    a3=int(a[2])
+    a=int(a)
+    if a==((a2**3)+(a1**3)+(a3**3)):
+        b=0
+    else:
+        b=1
+    return(b)
+
+def exercicio12():
+    a=input('Insira o algarismo: ')
+    while len(a)!=3:
+        print('a tem que ter 3 algarismos!')
+        a=input('Insira o algarismo: ')
+    r=contas12(a)
+    if r==0:
+        print('Verdade')
+    else:
+        print('Falso')
+        
     
 
 #main
-exercicio1()
-exercicio1c()
-exercicio1d()
-exercicio10()
-exercicio1d()
-exercicio2()
-exercicio3()
-exercicio4()
-exercicio5()
-exercicio6()
-exercicio7()
+#exercicio1()
+#exercicio1c()
+#exercicio1d()
+#exercicio10()
+#exercicio1d()
+#exercicio2()
+#exercicio3()
+#exercicio4()
+#exercicio5()
+#exercicio6()
+#exercicio7()
+#exercicio8()
+#exercicio9()
+#exercicio10()
+#exercicio11()
+exercicio12()
