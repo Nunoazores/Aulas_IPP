@@ -1,0 +1,166 @@
+#execucao da tarefa 4
+#6/10/2014
+#Nuno Fernandes - A74165
+
+import math
+
+'''Import math permite usar a biblioteca math do python de modo a usar funções
+como o math.pi, math.sin() e math.cos()'''
+
+
+#Exercício 1
+
+def conv_gr(x):
+    y = x*math.pi/180 #converte o valor de graus para radianos
+    return(y)
+
+
+def rad():
+    a=float(input("Introduza um valor em graus: "))
+    ai=conv_gr(a)
+    print("%.2f graus equivalem a aproximadamente %.2f radianos.\n"%(a,ai))
+
+  
+#Exercício 2
+
+def conv_inmm(x):
+    y=x*25.40 #converte o valor de polegadas para milimetros
+    return(y)
+
+def prec():
+    a=float(input("Introduza um valor em polegadas: "))
+    while a<0: #o valor da media tem que ser positiva
+        print("Um comprimento tem que ser positivo!")
+        a=float(input("Introduza o valor em polegadas: "))
+    ai=conv_inmm(a)
+    print("%.2f polegadas são equivalentes a %.2f milímetros.\n"%(a,ai))
+
+#Exercício 3
+
+def conv_cf(x):
+    y=x*1.8 + 32 #converte a temperatura de graus Celsius para Fahrenheit
+    return y
+    
+def fahr():
+    a=float(input("Introduza um valor em graus Celsius: "))
+    ai=conv_cf(a)
+    print("%.2fº Celsius correspondem a %.2f Fahrenheit.\n"%(a,ai))
+
+#Exercício 4
+
+def convcor(x,y):
+    z=x*math.cos(y) #calcula o valor da abcissa
+    w=x*math.cos(y) #calcula o valor da ordenada
+    return(z,w)
+
+def coord():
+    print("Tendo em conta o ponto (ρcos(θ), ρsen(θ)) introduza os valores de:")
+    a=float(input("ρ:"))
+    b=float(input("θ:"))
+    (ai,bi)=convcor(a,b)
+    print("(%.0fcos(%.0f),%.0fcos(%.0f)) correspondem a (%.2f,%.2f).\n"%(a,b,a,b,ai,bi))
+    
+
+#Exercício 5   
+
+
+def conv_kwcv(x):           
+    y=x/735 #converte o valor de kilowatts para CV
+    return(y)
+
+def cv():
+    a=float(input("Introduza um valor em kilowatts: "))
+    ai=conv_kwcv(a)
+    print("%.2f Kilowatts correspondem %.2f a CV.\n"%(a,ai))
+
+#Exercício 6
+    
+def declive(a,b,c,d,x):
+    m=(b-d)/(a-c) #calcula o declive da reta intersetante
+    z=d-(c*m) #calcula a transposição da reta intersetante
+    y=(x*m)+z #usando a reta intersetante e a abcissa, calcula o valor da ordenada
+    return y
+
+def pontos():
+    print("Admitindo o valor de um ponto M1(a,b) e M2(c,d), pretende-se saber o valor da oredenada do ponto M3(x,y)")
+    a=float(input("Introduza o valor de a: "))
+    b=float(input("Introduza o valor de b: "))
+    c=float(input("Introduza o valor de c: "))
+    if a==c: #se a tiver o mesmo valor que c, não é possível determinar o valor da reta intersetante
+        print("O valor de a tem que ser maior que o valor de c!\n")
+    else:
+        d=float(input("introduza o valor de d: "))
+        x=float(input("introduza o valor de x: "))
+        ai=declive(a,b,c,d,x)
+        print("O ponto M3 corresponde a (%.2f,%.2f).\n"%(x,ai))
+
+#Exercício 7
+
+def area(l1,l2,l3):
+    t=((l1+l2+l3)/2)
+    y=((t*(t-l1)*(t-l2)*(t-l3))**(1/2)) #calcula a área do triangulo baseado numa fórmula dada....
+    return(y)
+
+def triangulo():
+    a=float(input("Introduza o valor do 1º lado: "))
+    b=float(input("Introduza o valor do 2º lado: "))
+    c=float(input("introduza o valor do 3º lado: "))
+    if (a+b<c) or (a<b+c) or (b<c+a):
+        print("O valor da hipotenusa tem que ser superior ao valor dos catetos!!!\n")
+    else:
+        ai=area(a,b,c)
+        print("O triângulo tem uma área de %.2f.\n"%(ai))
+    
+#Exercício 8
+
+def area_esf(x):
+    y=4*math.pi*(x**2) # calucla a area
+    return(y)
+
+def vol_esf(x):
+    y=4*math.pi*(x**3) #calcula o volume
+    return(y)
+
+def raio():
+    r=float(input("Introduza o valor do raio: "))
+    if r<=0: #é impossivel have um cirulo ou esfera com raio inferior ou igual a 0
+        print("O raio tem que ser maior que 0.\n")
+    else:
+        a=area_esf(r)
+        v=vol_esf(r)
+        print("A área tem um valor de %.2f e o volume um valor de %.2f.\n"%(a,v))
+    
+#Exercício 9
+
+def irs(d1,d2,d3,d4,d5):
+    total=(d1*250)+(d2*250)+(d3*250)+(d4*250)+(d5*250) #calcula o valor ganho na semana toda
+    y=total-(0.2*total) #aplica os descontos
+    return(y)
+
+def trabalho():
+    a=float(input("Introduza o número de horas do 1ºdia: "))
+    b=float(input("Introduza o número de horas do 2ºdia: "))
+    c=float(input("Introduza o número de horas do 3ºdia: "))
+    d=float(input("Introduza o número de horas do 4ºdia: "))
+    e=float(input("Introduza o número de horas do 5ºdia: "))
+
+    if a>24 or b>24 or c>24 or d>24 or e>24:
+        print("Um trabalhador não pode trabalhar mais que 24 horas por dia!\n")
+    if a<0 or b<0 or c<0 or d<0 or e<0:
+        print("Um trabalhador tem que trabalhar pelo menos uma hora por dia!\n")
+    else:
+        ai=irs(a,b,c,d,e)
+        print("O trabalhador ganhou %.2f esta semana.\n"%(ai))
+
+#main
+
+rad()
+prec()
+fahr()
+coord()
+cv()
+pontos()
+triangulo()
+raio()
+trabalho()
+
