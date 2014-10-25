@@ -1,0 +1,129 @@
+#-*- coding:utf-8 -*-
+'''
+Created on 20/10/2014
+
+@author: Nuno
+'''
+
+def sequencia_al(n):
+    seq=[]
+    for i in range(n):
+        a=float(input('Insira a nota do %iº aluno: '%(i+1)))
+#        while a>20 or a<0: #a limitacao de o a 20 e um exemplo, pode ser de 0 a 100 por exemplo
+#            print('O valor da nota tem que estar inserido entre 0 e 20.')
+#            a=float(input('Insira a nota do %iº aluno: '%(i+1)))            
+        seq.append(a)
+    return seq
+
+def medias(seq):
+    soma=0
+    for i in range(len(seq)):
+        soma+=seq[i]
+    media=soma/len(seq)
+    return media
+
+def val_sup(media,seq):
+    b=0
+    for i in range(len(seq)):
+        if seq[i]>media:
+            b+=1
+    return b
+
+def notas():
+    n=int(input('Insira o número de alunos: '))
+#    while n<=0:
+#        print('Tem que haver pelo menos um aluno numa turma!')
+#        n=int(input('Insira o número de alunos: '))
+    seq=sequencia_al(n)
+    media=medias(seq)
+    sup=val_sup(media,seq)
+    print('Existem %i valores superiores à média.'%(sup))
+
+def calc_mes(seq):
+    x=0
+    soma=0
+    while x<12:
+        soma+=seq[x]
+        x+=1
+        print('Foram produzidos %.2f € até o %i mês.'%(soma,x))    
+
+def calc_ano(seq):
+    x=0
+    total=0
+    while x<12:
+        total+=seq[x]
+        x+=1
+    return total
+ 
+def calc_met(seq,total):
+    x=0
+    soma=0
+    while x<12:
+        soma+=seq[x]
+        x+=1
+        if soma==total/2:
+            return x
+
+def seq_mes(n):
+    seq=[]
+    for i in range(12):
+        seq.append(n)
+    return seq
+
+def IOfabrica():
+    n=float(input('Insira o valor mensal de produção da fábrica de automóveis:'))
+    seq=seq_mes(n)
+    print('a)')
+    calc_mes(seq)
+    print('b)')
+    total=calc_ano(seq)
+    print('São produzidos %.2f € por ano.'%(total))
+    print('c)')
+    mes=calc_met(seq,total)
+    print('A produção alcançou metade no %i mês'%(mes))
+
+def num_seq(n):
+    seq=[]
+    for i in range(n):
+        a=float(input('Qual o valor para o %i número? '%(i+1)))
+        seq.append(a)
+    return seq
+
+def sup_media(seq):
+    media=0
+    val=0
+    for i in range(len(seq)):
+        media+=seq[i]
+    media/=len(seq)
+    for i in range(len(seq)):
+        if seq[i]>media:
+            val+=1
+    final=(val/len(seq))*100
+    return final
+
+def inf(seq):
+    a=0
+    for i in range(len(seq)):
+        if seq[i]<seq(len(seq)-2):
+            a+=1
+    final=(a/len(seq))*100
+    return final
+    
+def numeros():
+    n=int(input('Introduza a quantidade de números: '))
+    seq=num_seq(n)
+    print('a)')
+    sup=sup_media(seq)
+    print('%.2f dos valores são superiores à média.'%(sup))
+    print('b)')
+    inf=inf(seq)
+    print('%.2f dos valores são inferiores ao antepenultimo numero.'%(inf))
+    
+   
+#main
+print('1)')
+notas()
+print('\n2)')
+IOfabrica()
+print('\n3)')
+numeros()
