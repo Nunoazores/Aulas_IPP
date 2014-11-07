@@ -1,0 +1,139 @@
+#-*- coding:utf-8 -*-
+'''
+Created on 03/11/2014
+
+@author: captain jack
+'''
+
+def tsup(mat1):
+    a=0
+    n=len(mat1)
+    if n!=len(mat1[0]):
+        a=-1
+        return a
+    for i in range(1, n):
+        j=0
+        while i>j:
+            if mat1[i][j]!=0:
+                a=1
+                return a
+            j+=1            
+    return a
+
+def simetria(mat1):
+    a=0
+    n=len(mat1)
+    if n!=len(mat1[0]):
+        a=-1
+        return a
+    for i in range(1, n):
+        j=0
+        while i>j:
+            if mat1[i][j]!=mat1[j][i]:
+                a=1
+                return a
+            j+=1            
+    return a
+
+def media(mat1):
+    n=len(mat1)
+    p=len(mat1[0])
+    soma=0
+    for i in range(n):
+        for j in range(p):
+            soma+=mat1[i][j]
+    media=soma/(n*p)
+    return media
+
+def supmedia(mat1,media):
+    a=0
+    for i in range(len(mat1)):
+        for j in range(len(mat1[0])):
+            if mat1[i][j]>media:
+                a+=1
+    return a
+
+def matriz():
+    linha=[]
+    mat=[]
+    while True:
+        n=int(input('Insira o número de linhas da matriz: '))
+        p=int(input('Insira o número de colunas da matriz: '))
+        if n>0 and p>0:
+            break
+        print('O número de linhas e o número de colunas teem que ser maiores que 0!')
+    for i in range(n):
+        for j in range(p):
+            a=int(input('Insira do valor da %iª linha e %iª coluna: '%(i+1,j+1)))
+            linha.append(a)
+        mat.append(linha)
+        linha=[]
+    return mat
+        
+
+def produto(mat1,valor):
+    mat=[]
+    mat3=[]
+    for i in range(len(mat1)):
+        for j in range(len(mat1[0])):
+            a=valor*mat1[i][j]
+            mat.append(a)
+        mat3.append(mat)
+        mat=[]
+    return mat3
+
+def trans(mat1):
+    mat=[]
+    mat3=[]
+    for i in range(len(mat1)):
+        for j in range(len(mat1[0])):
+            a=mat1[j][i]
+            mat.append(a)
+        mat3.append(mat)
+        mat=[]
+    return mat3
+
+def soma(mat1,mat2):
+    mat=[]
+    mat3=[]
+    if len(mat1[0])!=len(mat2[0]) or len(mat1)!=len(mat2):
+        print('O numero de linhas e de colunas das matrizes a somar teem que ser iguais!')
+        return mat3
+    else:
+        for i in range(len(mat1)):
+            for j in range(len(mat1[0])):
+                a=mat1[i][j]+mat2[i][j]
+                mat.append(a)
+            mat3.append(mat)
+            mat=[]
+        return mat3
+
+#main
+mat1=matriz()
+b=tsup(mat1)
+if b==0:
+    print('A matriz é triangular superior!')
+elif b==1:
+    print('A matriz não é tringular superior!')
+else:
+    print('Para uma matriz ser simétrica tem que ter o mesmo número de linhas e colunas!')
+media=media(mat1)
+sup=supmedia(mat1, media)
+print('Existem', sup, 'valores superiores à média!')
+a=simetria(mat1)
+if a==0:
+    print('A matriz é simétrica!')
+elif a==1:
+    print('A matriz não é simétrica!')
+else:
+    print('Para uma matriz ser simétrica tem que ter o mesmo número de linhas e colunas!')
+valor=int(input('Insira um valor a multiplicar pela raíz: '))
+prod=(produto(mat1,valor))
+print('O produto da matriz por', valor, ' é:\n', prod)
+t=(trans(mat1))
+print('A transpota da matriz é:\n', t)
+print('É necessário inserir uma nova matriz!')
+mat2=matriz()
+soma=(soma(mat1,mat2))
+if soma!=[]:
+    print('A soma da 1ª matriz com a 2ª matriz é:')
