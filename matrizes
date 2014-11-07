@@ -85,8 +85,8 @@ def produto(mat1,valor):
 def trans(mat1):
     mat=[]
     mat3=[]
-    for i in range(len(mat1)):
-        for j in range(len(mat1[0])):
+    for i in range(len(mat1[0])):
+        for j in range(len(mat1)):
             a=mat1[j][i]
             mat.append(a)
         mat3.append(mat)
