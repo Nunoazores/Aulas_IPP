@@ -1,0 +1,35 @@
+#-*- coding:utf-8 -*-
+''' azores 4ever '''
+
+def semrep(s):
+#    dic={s}
+    dic = {}
+    for item in s:
+#        if dic.haskey(s[i]):
+#            s.remove(i)
+        if item in dic:
+            dic[item]+=1
+        else:
+            dic[item]=1
+    d=list(dic.keys())
+    r=list(dic.values())
+    dr=[]
+    dr.append(d)
+    dr.append(r)
+    return dr
+
+def seq():
+    s=[]
+    n=int(input('quantidade'))
+    for i in range(n):
+        a=float(input('valor'))
+        s.append(a)
+    return s
+
+#main
+s=seq()
+print(s)
+dr=semrep(s)
+print(dr)
+for i in range(len(dr[0])):
+    print('O elemento' + str(dr[0][i]) + 'aparece' + str(dr[1][i]) + 'vezes')
