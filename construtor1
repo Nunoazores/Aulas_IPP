@@ -1,0 +1,23 @@
+#-*- coding:utf-8 -*-
+'''
+Created on 10/11/2014
+
+@author: Florzinha
+'''
+from Classes import superficie,rect
+
+sup=superficie(1000,500)
+R1=rect(100,100)
+sucesso=superficie.colocar(sup,R1,0,0)
+if sucesso==True:
+    print('A figura R1 foi colocada na posição', R1.x,',',R1.y)
+else:
+    print('erro')
+R2=rect(100,200)
+sucesso=superficie.colocar(sup,R2,0,0)
+if sucesso==True:
+    print('A figura R2 foi colocada na posição', R2.x,',',R2.y)
+else: 
+    print('erro')
+rect.coordenadasauto(R2,sup)
+print('A figura R2 foi colocada na posição', R2.x,',',R2.y)
