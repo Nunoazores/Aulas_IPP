@@ -1,0 +1,73 @@
+#-*- coding:utf-8 -*-
+
+'''
+Created on 10/11/2014
+
+@author: Tua mãe!
+'''
+
+class superficie:
+    def __init__(self,comprimento,largura):
+        self.c=comprimento
+        self.l=largura
+        self.lfig=[]
+    def colocar(self, fig, x, y):
+        if fig.tipo==1:
+            #quadrado
+            if fig.c>self.c:
+                return False
+            if fig.l>self.l:            
+                return False
+            if x<0:
+                return False
+            if y<0:
+                return False
+            if x+fig.l>self.l:
+                return False
+            if y+fig.c>self.c:
+                return False
+            for figura in range(len(self.lfig)):
+                a=self.lfig[figura]
+#                if a.tipo==1:
+                if (x<a.x+a.c and x>=a.x) and (y<a.y+a.l and y>=a.y):
+                    return False
+#                else:
+#                    if (x==a.x and y==a.y):
+#                        return False
+            self.lfig.append(fig)
+            fig.x=x
+            fig.y=y
+            return True
+        else:
+            #circulo
+            if x+fig.r<0:
+                return False
+            if y+fig.r<0:
+                return False
+            if x+fig.r>self.l:
+                return False
+            if y+fig.r>self.c:
+                return False
+                   
+class rect:
+    def __init__(self,comprimento,largura):
+        self.c=comprimento
+        self.l=largura
+        self.x=-1
+        self.y=-1
+        self.tipo=1
+    def coordenadasauto(self,sup):
+        self.x=0
+        self.y=0
+        while superficie.colocar(sup,self,self.x,self.y)==False:
+            self.x+=1
+            if self.x==999:
+                self.x=0
+                self.y+=1
+        
+class circ:
+    def __init__(self,raio):
+        self.r=raio
+        self.x=-1
+        self.y=-1
+        self.tipo=0
