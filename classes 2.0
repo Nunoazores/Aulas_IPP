@@ -1,0 +1,133 @@
+#-*- coding:utf-8 -*-
+'''
+Created on 18/11/2014
+
+@author: Nuno Alexandre Tavares de Campos Fernandes
+Número: A74165
+'''
+import math
+class superficie:
+    def __init__(self, largura, altura):
+        self.l = largura
+        self.h = altura
+        self.Lfig = []
+
+    def mover(self, fig,mover_x,mover_y):
+        self.apagar_figura(fig)
+        if self.colocar(fig,mover_x,mover_y)==False:
+            self.Lfig.append(fig)
+            return False
+        else:
+            return True
+
+    def apagar_figura(self,fig):
+        self.Lfig.remove(fig)
+    
+    def rodar_fig(self,fig):
+        if fig.tipo=='circulo':
+            return True
+        a=False
+        for i in range(len(self.Lfig)):
+            if fig==self.Lfig[i]:
+                a=True
+        if a==True:
+            self.apagar_figura(fig)
+            a=fig.h
+            fig.h=fig.l
+            fig.l=a
+            if self.colocar(fig,fig.x,fig.y):
+                return True
+            else:
+                a=fig.h
+                fig.h=fig.l
+                fig.l=a
+        return False            
+        
+    def comparar(self, fig1, fig2,x,y): #compara as figuras e verifica se estas se intersetam. Se se intersetarem retorna false, sen�o retorna true
+        #condi��o ret�ngulo vs ret�ngulo
+        if (fig1.tipo == "retangulo" and fig2.tipo == "retangulo"):
+            if (fig2.x<=x<fig2.x+fig2.l) and (fig2.y<=y<fig2.y+fig2.h):
+                return False
+            else:
+                return True
+        #condi��o circulo vs circulo
+        elif (fig1.tipo == "circulo" and fig2.tipo == "circulo" ):
+            if (fig1.raio + fig2.raio)<=(math.sqrt((fig2.x - fig1.x)**2 + (fig2.y)**2)):
+                return True
+            else:
+                return False
+        #condi��o ret�ngulo vs circulo
+        elif (fig1.tipo == "retangulo" and fig2.tipo == "circulo" ):
+            if (x - fig2.raio<fig2.x < x + fig1.l + fig2.raio) and (y - fig2.raio<fig2.y<y + fig1.h + fig2.raio):
+                return False
+            else:
+                return True
+        #circulo vs retangulo
+        else:
+            if (fig2.x - fig1.raio<x < fig2.x + fig2.l + fig1.raio) and (fig2.y - fig1.raio<y<fig2.y + fig2.h + fig1.raio):
+                return False
+            else:
+                return True
+
+    def colocar(self, fig, x, y):
+        if fig.tipo=='retangulo':
+            if((x+fig.l)>self.l or (y + fig.h)>self.h or x<0 or y<0):
+                return False
+        if fig.tipo=='circulo':
+            if(x+fig.raio>self.l or y + fig.raio>self.h or x-fig.raio<0 or y-fig.raio<0):
+                return False
+        end=True
+        i=0
+        while i<len(self.Lfig) and end==True:
+            a=self.comparar(fig,self.Lfig[i],x,y)
+            if a==True:
+                i+=1
+            else:
+                end=False
+        if end==True:
+            fig.x=x
+            fig.y=y
+            self.Lfig.append(fig)
+            return True
+        return False
+
+    def coordenadasauto(self,fig):
+        try:
+            self.Lfig.remove(fig)
+        finally:
+            fig.x=0
+            fig.y=0
+            while superficie.colocar(self,fig,fig.x,fig.y)==False:
+                fig.x+=1
+                if fig.x==self.l-1:
+                    fig.x=0
+                    fig.y+=1
+            return True    
+    
+    def colocartudo(self):
+        for i in range(len(self.Lfig)):
+            self.coordenadasauto(self.Lfig[i])
+    
+    def areaocup(self):
+        area=0
+        for i in range(len(self.Lfig)):
+            area+=self.Lfig[i].area
+        return area
+
+class retangulo:
+    def __init__(self, largura, altura):
+        self.l = largura
+        self.h = altura
+        self.pos_x = -1
+        self.pos_y = -1
+        self.tipo = "retangulo"
+        self.area = largura * altura
+
+class circulo:
+    def __init__(self, raio): 
+        self.x=-1
+        self.y=-1
+        self.raio=raio
+        self.tipo = "circulo"
+        self.area = math.pi*(raio**2)
+        
