@@ -1,0 +1,143 @@
+#-*- coding:utf-8 -*-
+'''
+Created on 28/12/2014
+
+@author: Nuno
+Classes 2.0
+'''
+class dicionario:
+    def __init__(self,dic):
+        self.dicionario=dic
+        self.ln=[]
+        
+    def ler(self):
+        try:
+            f=open(self.dicionario,"r")
+            try:
+                self.ln=f.read().split()
+            finally:
+                f.close
+        except IOError:
+            print("Erro!")
+            
+    def verdic(self):
+        for nome in self.ln:
+            print(nome)
+            
+class sopa:
+    def __init__(self,sopafic):
+        self.sopa=sopafic
+        self.ln=[]
+
+    def ler(self):
+        try:
+            f=open(self.sopa,"r")
+            try:
+                self.ln=f.read().split()
+            finally:
+                f.close
+        except IOError:
+            print("Erro!")
+
+    def encontrar_palavra(self,palavra):
+        end=False
+        end2=False
+        end3=True
+        #as variáveis end são utilizadas para controlar o
+        numero_vezes=0
+        letra_palavra=0
+        linha=0
+        letra_sopa=0
+        iw=0
+        while end==False:
+            iw=0
+            end2=False
+            while palavra[letra_palavra] != self.ln[linha][letra_sopa] and end2==False:
+                if linha+1==len(self.ln) and letra_sopa+1==len(self.ln[linha]):
+                    end=True
+                    end2=True
+                elif len(self.ln[linha])!=(letra_sopa+1):
+                    letra_sopa+=1
+                else:
+                    letra_sopa=0
+                    linha+=1
+            if len(palavra)==1 and end==False:
+                numero_vezes+=1
+            elif end==False:
+                end3=False
+                frente=True
+                tras=True
+                cima=True
+                baixo=True
+                diag_sup_dir=True
+                diag_sup_esq=True
+                diag_inf_dir=True
+                diag_inf_esq=True
+            while end3==False:
+                iw+=1
+                if (letra_sopa+iw>len(self.ln[linha])-1 or palavra[letra_palavra+iw] != self.ln[linha][letra_sopa+iw]) and frente==True:
+                    frente=False
+                if (letra_sopa-iw<0 or palavra[letra_palavra+iw] != self.ln[linha][letra_sopa-iw]) and tras==True:
+                    tras=False
+                if (linha+iw>len(self.ln)-1 or palavra[letra_palavra+iw] != self.ln[linha+iw][letra_sopa]) and cima==True:
+                    cima=False
+                if (linha-iw<0 or palavra[letra_palavra+iw] != self.ln[linha-iw][letra_sopa]) and baixo==True:
+                    baixo=False
+                if ((letra_sopa+iw>len(self.ln[linha])-1 or linha+iw>len(self.ln)-1) or palavra[letra_palavra+iw] != self.ln[linha+iw][letra_sopa+iw]) and diag_sup_dir==True:
+                    diag_sup_dir=False
+                if ((linha-iw<0 or letra_sopa+iw>len(self.ln[linha])-1)or palavra[letra_palavra+iw] != self.ln[linha-iw][letra_sopa+iw]) and diag_inf_dir==True:
+                    diag_inf_dir=False
+                if ((linha+iw>len(self.ln)-1 or linha+iw>len(self.ln)-1) or palavra[letra_palavra+iw] != self.ln[linha+iw][letra_sopa-iw]) and diag_sup_esq==True:
+                    diag_sup_esq=False
+                if ((letra_sopa-iw<0 or linha-iw<0) or palavra[letra_palavra+iw] != self.ln[linha-1][letra_sopa-iw]) and diag_inf_esq==True:
+                    diag_inf_esq=False
+                if len(palavra)-1==letra_palavra+iw:
+                    if frente==True:
+                        numero_vezes+=1
+                    if tras==True:
+                        numero_vezes+=1
+                    if cima==True:
+                        numero_vezes+=1
+                    if baixo==True:
+                        numero_vezes+=1
+                    if diag_sup_dir==True:
+                        numero_vezes+=1
+                    if diag_sup_esq==True:
+                        numero_vezes+=1
+                    if diag_inf_dir==True:
+                        numero_vezes+=1
+                    if diag_inf_esq==True:
+                        numero_vezes+=1
+                    end3=True                   
+            if linha+1==len(self.ln) and len(self.ln[linha])==(letra_sopa+1):                
+                    return numero_vezes
+                    end=True
+            if len(self.ln[linha])!=(letra_sopa+1):
+                letra_sopa+=1
+            else: 
+                letra_sopa=0
+                linha+=1
+    
+    def cruzar_dicionario(self,dicionario):
+        ocorrencia=0
+        try:
+            resultado=open("Resultados.txt","w")
+        except IOError:
+            print("Erro!")
+        for palavra in dicionario.ln:
+            valor = self.encontrar_palavra(palavra.upper())
+            if valor>0:
+                ocorrencia+=valor
+                print(palavra, valor)
+                try:  
+                    resultado.write('A palavra ' + palavra + ' aparece ' + str(valor) + ' vezes.\n')
+                finally:
+                    resultado.close
+        try:  
+            resultado.write('Existem ' + str(ocorrencia) + ' palavras nesta sopa de letras.')
+        finally:
+            resultado.close        
+
+    def versopa(self):
+        for linha in self.ln:
+            print(linha)  
